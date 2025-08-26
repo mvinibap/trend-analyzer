@@ -1,0 +1,21 @@
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+build/
+**/build/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Data and reports
+reports/
+data/
+
+# OS
+.DS_Store
+
