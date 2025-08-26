@@ -1,6 +1,7 @@
 package com.trend.core;
 
 import java.awt.image.BufferedImage;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -41,6 +42,7 @@ public class GenerateMaReport {
         String header = String.format("%s MA %d/%d", asset, fast, slow);
         String footer = DateTimeFormatter.ISO_INSTANT.format(Instant.now());
         String ts = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm").withZone(ZoneOffset.UTC).format(Instant.now());
+        Files.createDirectories(outDir);
         Path outPdf = outDir.resolve(String.format("%s_MA_%d-%d_%s.pdf", asset, fast, slow, ts));
         reportComposer.composeSinglePage(chart, header, footer, outPdf);
         return outPdf;

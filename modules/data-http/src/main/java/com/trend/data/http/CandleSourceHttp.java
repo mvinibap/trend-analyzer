@@ -18,9 +18,15 @@ import java.util.List;
 public class CandleSourceHttp implements CandleSource {
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
+    private final long throttleMs;
+
+    public CandleSourceHttp(long throttleMs) {
+        this.throttleMs = throttleMs;
+    }
 
     @Override
     public List<Candle> fetchDaily(String asset, String baseCurrency, Instant from, Instant to) throws Exception {
+        if (throttleMs > 0) Thread.sleep(throttleMs);
         long days = ChronoUnit.DAYS.between(from, to) + 1;
         String url = String.format("https://api.coingecko.com/api/v3/coins/%s/ohlc?vs_currency=%s&days=%d",
                 asset.toLowerCase(), baseCurrency.toLowerCase(), days);

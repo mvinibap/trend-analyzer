@@ -41,12 +41,17 @@ public class Cli implements Callable<Integer> {
         Path dbPath = Path.of(cfg.storage.sqlitePath);
         if (!dbPath.toFile().exists()) dbPath = Path.of("../" + cfg.storage.sqlitePath);
         if (!dbPath.toFile().exists()) dbPath = Path.of("../../" + cfg.storage.sqlitePath);
-        CandleSource source = new CandleSourceHttp();
+        if (!"coingecko".equalsIgnoreCase(cfg.data.provider)) {
+            throw new IllegalArgumentException("Unsupported data provider: " + cfg.data.provider);
+        }
+        CandleSource source = new CandleSourceHttp(cfg.data.throttleMs);
         CandleStore store = new CandleStoreSqlite(dbPath.toString());
         ChartRenderer renderer = new XChartRenderer();
         ReportComposer composer = new PdfBoxComposer();
+        int fast = Integer.parseInt(System.getenv().getOrDefault("TA_MA_FAST", Integer.toString(cfg.ma.fast)));
+        int slow = Integer.parseInt(System.getenv().getOrDefault("TA_MA_SLOW", Integer.toString(cfg.ma.slow)));
         GenerateMaReport useCase = new GenerateMaReport(source, store, renderer, composer);
-        Path outPdf = useCase.execute(asset, base, from, to, cfg.ma.fast, cfg.ma.slow, cfg.theme.dark, cfg.report.widthPx, cfg.report.heightPx, Path.of(cfg.report.outDir));
+        Path outPdf = useCase.execute(asset, base, from, to, fast, slow, cfg.theme.dark, cfg.report.widthPx, cfg.report.heightPx, Path.of(cfg.report.outDir));
         System.out.println("Generated: " + outPdf);
         return 0;
     }
