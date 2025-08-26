@@ -238,7 +238,7 @@ public record Candle(
 
 🔗 PriceService (domain), HttpPriceClient (HTTP) and PriceRepository (DAO)
 
-(Examples provided in Portuguese version remain unchanged; they would be implemented the same way with English logs/messages.)
+(Examples remain unchanged; they would be implemented the same way with English logs/messages.)
 
 ⸻
 
@@ -314,7 +314,7 @@ dependencies {
 
 🚀 Run
 
-./gradlew bootRun --args="ETH-USD"
+gradle bootRun --args="ETH-USD"
 # Output:
 # PDF generated at ./reports/ETH-USD_MA_50-200_YYYYMMDD_HHmm.pdf
 
@@ -329,4 +329,3 @@ dependencies {
 	•	Transaction: @Transactional on upsertDaily.
 	•	No web server: pure CLI app.
 
-⸻

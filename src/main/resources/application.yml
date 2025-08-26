@@ -1,0 +1,23 @@
+spring:
+  main:
+    web-application-type: none
+
+ta:
+  timeframe: "D1"
+  lookback: "P365D"
+  ma:
+    type: "SMA"
+    fast: 50
+    slow: 200
+  data:
+    provider: "coingecko"
+    baseCurrency: "USD"
+    throttleMs: 0
+  storage:
+    sqlitePath: "./data/trend.db"
+  theme:
+    dark: true
+  report:
+    widthPx: 1600
+    heightPx: 900
+    outDir: "./reports"
