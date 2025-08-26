@@ -314,7 +314,7 @@ dependencies {
 
 🚀 Run
 
-./gradlew bootRun --args="ETH-USD"
+gradle bootRun --args="ETH-USD"
 # Output:
 # PDF generated at ./reports/ETH-USD_MA_50-200_YYYYMMDD_HHmm.pdf
 
