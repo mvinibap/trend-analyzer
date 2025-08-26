@@ -1,0 +1,30 @@
+spring:
+  main:
+    web-application-type: none
+
+logging:
+  config: classpath:log4j2.xml
+
+# Trend Analyzer properties
+# They are bound to AppProperties record
+# Modify as needed for your local run
+# Example values correspond to v0.1 spec
+ta:
+  timeframe: "D1"
+  lookback: "P365D"
+  ma:
+    type: "SMA"
+    fast: 50
+    slow: 200
+  data:
+    provider: "binance"
+    baseCurrency: "USDT"
+    interval: "4h"
+    limit: 1000
+    throttleMs: 0
+  theme:
+    dark: true
+  report:
+    widthPx: 1600
+    heightPx: 900
+    outDir: "./reports"
